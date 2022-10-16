@@ -17,11 +17,13 @@ function App() {
     e.preventDefault();
     setWordSubmit(mySearch);
   }
+
   useEffect(() => {
   getRecepies();
   },[wordSubmit])
+  
     const getRecepies = async() =>{
-      const response = await fetch(`https://api.edamam.com/search?q=${wordSubmit}&app_id=${MY_ID}&app_key=${MY_KEY}`);
+    const response = await fetch(`https://api.edamam.com/search?q=${wordSubmit}&app_id=${MY_ID}&app_key=${MY_KEY}`);
     const data = await response.json();
     setMyRecepies(data.hits)
     }
@@ -48,12 +50,17 @@ function App() {
 
         <div className='container'>
         <button>
-          <img src="https://img.icons8.com/tapes/344/experimental-search-tapes.png" width="35px" className='icon'/>
+          <img src="https://img.icons8.com/tapes/344/experimental-search-tapes.png"alt="search" width="35px" className='icon'/>
         </button>
         </div>
-       <div className='cont'>
-      {myRecepies.map(element =>(
-        <MyRecepiesComponent label={element.recipe.label} image={element.recipe.image} calories = {element.recipe.calories} ingredients = {element.recipe.ingredientLines}/>
+
+       <div  className='cont'>
+      {myRecepies.map((element, index) =>(
+        <MyRecepiesComponent key={index}
+        label={element.recipe.label} 
+        image={element.recipe.image} 
+        calories = {element.recipe.calories} 
+        ingredients = {element.recipe.ingredientLines}/>
       ))}
       </div>
     </div>
